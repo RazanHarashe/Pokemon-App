@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import './App.css'
+import axios from 'axios';
 
-function App() {
+const App = () => {
   const [pokemonNames, setPokemonNames] = useState([]);
 
   const fetchPokemon = async () => {
     try {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=807');
-      const data = await response.json();
-      const names = data.results.map(pokemon => pokemon.name);
+      const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=807');
+      const names = response.data.results.map(pokemon => pokemon.name);
       setPokemonNames(names);
     } catch (error) {
       console.error("Error fetching the Pokémon data", error);
@@ -25,6 +24,6 @@ function App() {
       </ul>
     </div>
   );
-}
+};
 
 export default App;
